@@ -1,12 +1,3 @@
-# "fixa med faktura klarna transaction ID: 31737736"
-#
-# ~/.bashrc
-#
-
-#
-# Prompt
-# echo ""
-#
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -14,6 +5,7 @@
 # Prompt #
 PS1='[\u@\h \W]\$ '
 
+PATH+=":/home/andpal/.scripts/"
 
 # Bash #
 # Set bash to append to command history instead of overwriting
@@ -23,16 +15,17 @@ shopt -s histappend
 # Env variables
 export EDITOR=vim
 
-# PATH
-export PATH="/home/andpal/.bin:$PATH"
+export QT_SELECT=5
 
-# Pintos and TDDB68
-export PATH="/home/andpal/courses/tddb68/tddb68_collab/linuxpintos/src/utils:$PATH"
 
-# No worky work No worky workyy
-#function pintosdoc {
-#    grep $1 --file="/home/andpal/courses/tddb68/pintos-doc/txt_pintos.txt"
-#}
+# SSH #
+alias startx='ssh-agent startx'
+
+
+# Load common aliases #
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 
 # MOUNT USB
@@ -43,39 +36,9 @@ function unmountusb {
 	sudo umount /mnt/usb
 }
 
-# SSH #
-
-alias startx='ssh-agent startx'
-
-function sshaddkeys {
+function sshaddkey {
     ssh-add ~/.ssh/id_rsa
 }
-
-# Aliases #
-
-alias rm='rm -vI'
-alias cp='cp -i'
-alias mv='mv -i'
-alias mkdir='mkdir -pv'
-alias top='htop'
-alias diff='colordiff'
-
-alias dirs='dirs -v'
-
-# Add the name of annoying ls entries in a .hidden file in its parent directory and it will remove those entries from ls output
-alias ls='ls -lhN --file-type --color=auto $( if [ -f .hidden ]; then cat .hidden | xargs -I {} echo -n --hide="{}"\ ; fi; )'
-
-
-# Settng Collate changes the sort order. 
-# C: dotfiles end up above all other files
-alias lsl='LC_ALL=C ls -lhFA --color=auto'
-
-alias fpwd='find . -name'
-
-alias histg='history | grep'
-
-alias synergy='synergys --config  ~/.synergyrc'
-
 
 
 ### Programs ###
@@ -90,19 +53,7 @@ function VGMEM {
 }
 
 ### Functions ###
-# SSH #
-function andpa149@liu {
-    ssh andpa149@remote-und.ida.liu.se
-}
-function andpa149@ixtab {
-    ssh andpa149@ixtab.edu.isy.liu.se
-}
-function antpal@lys {
-    ssh antpal@teyla.lysator.liu.se
-}
-function antpal@lys1 {
-    ssh antpal@slartibartfast.lysator.liu.se
-}
+
 
 # Navigation #
 function cls {
@@ -155,4 +106,6 @@ function .... {
 function pdfpcount {
     find $1 -maxdepth 20 -type f -name '*.pdf' -exec pdfinfo {} \; | grep Pages | cut -b 17-
 }
+
+
 
