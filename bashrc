@@ -3,20 +3,15 @@
 [[ $- != *i* ]] && return
 
 # Prompt #
-PS1='[\u@\h \W]\$ '
-
-PATH+=":/home/andpal/.scripts/"
+PS1='\[\033[01;32m\]\u\[\033[01;00m\]@\[\033[01;36m\]\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] '
 
 # Bash #
 # Set bash to append to command history instead of overwriting
 # Multiple shells will otherwise overwrite eachothers history
 shopt -s histappend
 
-# Env variables
-export EDITOR=vim
-
-export QT_SELECT=5
-
+# Automatically cd's into directory if only dir name is entered
+shopt -s autocd
 
 # SSH #
 alias startx='ssh-agent startx'
@@ -26,19 +21,6 @@ alias startx='ssh-agent startx'
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
-
-# MOUNT USB
-function mountusb {
-	sudo mount -o gid=users,fmask=113,dmask=002 $1 /mnt/usb/
-}
-function unmountusb {
-	sudo umount /mnt/usb
-}
-
-function sshaddkey {
-    ssh-add ~/.ssh/id_rsa
-}
 
 
 ### Programs ###
@@ -52,14 +34,8 @@ function VGMEM {
     fi
 }
 
+
 ### Functions ###
-
-
-# Navigation #
-function cls {
-    clear
-    ls $1
-}
 # Displays all files including those in subdirs
 function subls {
 	for d in * .[!.]* ..?*; do
@@ -93,15 +69,7 @@ function mcd {
 function fsize {
     du -sh *
 }
-function .. {
-    cd ..
-}
-function ... {
-    cd ../../
-}
-function .... {
-    cd ../../../
-}
+
 
 function pdfpcount {
     find $1 -maxdepth 20 -type f -name '*.pdf' -exec pdfinfo {} \; | grep Pages | cut -b 17-

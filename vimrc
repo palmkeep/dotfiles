@@ -79,6 +79,7 @@ set laststatus=2
 set hidden  " Better buffer-handling
 let mapleader = "," " Exchange \ for , in commands
 
+set nomodeline
 
 " ============================== Line-numbering =============================
 " Displays whitespace-characters with ,s
@@ -153,6 +154,13 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" ============================== Func ========================================
+
+" Opens up the text in the first set of "-quotation marks as a pdf file in the
+" current directory
+map <leader>p 0/"<CR>yi":!xpdf <C-R>" & disown<CR><CR>
+
 
 " ============================== EOF ========================================
 
